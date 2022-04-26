@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,15 +37,11 @@ public class LivreController {
 		Livre livre=livreService.getLivre(id);
 		return livre;
 	}
-	@PutMapping(path = "/update/{id}")
-	public Livre updateLivre(@PathVariable Integer id,String titre,String auteur,int nombrePages,Boolean disponible,String dateSortie,String dateDerniereConsultation) throws ParseException {
+	@PutMapping(path = "/update")
+	public Livre updateLivre(@RequestBody Livre livre){
 		
-	    Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(dateSortie);  
-		
-	    Date date2=new SimpleDateFormat("yyyy/MM/dd").parse(dateDerniereConsultation);  
-
-		Livre livre = livreService.editLivre(id, titre, auteur, nombrePages, disponible,date1,date2);
-		return livre;
+		Livre livre_ = livreService.editLivre(livre);
+		return livre_;
 	}
 	
 	@DeleteMapping(path = "/delete/{id}")

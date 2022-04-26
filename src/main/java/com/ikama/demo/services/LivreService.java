@@ -47,26 +47,26 @@ public class LivreService {
 		
 	}
 	
-	public Livre editLivre(Integer id,String titre,String auteur,int nombrePages,Boolean disponible,Date dateSortie,Date dateDerniereConsultation) {
+	public Livre editLivre(Livre livre) {
 		
-		Livre livre= livreRepo.findById(id).orElse(null);
+		Livre existLivre= livreRepo.findById(livre.getId()).orElse(null);
 		
 		if (livre == null)
 			throw new RuntimeException("Livre not found");
 		
-		livre.setAuteur(auteur);
+			existLivre.setAuteur(livre.getAuteur());
 
-		livre.setDisponible(disponible);
+			existLivre.setDisponible(livre.getDisponible());
 
-		livre.setTitre(titre);
+			existLivre.setTitre(livre.getTitre());
 
-		livre.setDateSortie(dateSortie);
+			existLivre.setDateSortie(livre.getDateSortie());
 
-		livre.setDateDerniereConsultation(dateDerniereConsultation);
+			existLivre.setDateDerniereConsultation(livre.getDateDerniereConsultation());
 		
-		livre.setNombrePages(nombrePages);
+			existLivre.setNombrePages(livre.getNombrePages());
 		
-		Livre livreUpdated = livreRepo.save(livre); 
+		Livre livreUpdated = livreRepo.save(existLivre); 
 		
 		return livreUpdated;	
 	}
