@@ -31,22 +31,23 @@ public class LivreController {
 		List<Livre> livres=livreService.getAllLivres();
 		return livres;
 	}
-	@GetMapping(path = "/{id}")
+	@GetMapping(path = "/get/{id}")
 	public Livre getLivre(@PathVariable Integer id) {
 		Livre livre=livreService.getLivre(id);
 		return livre;
 	}
-	@PutMapping(path = "/{id}")
+	@PutMapping(path = "/update/{id}")
 	public Livre updateLivre(@PathVariable Integer id,String titre,String auteur,int nombrePages,Boolean disponible,String dateSortie,String dateDerniereConsultation) throws ParseException {
 		
 	    Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(dateSortie);  
+		
 	    Date date2=new SimpleDateFormat("yyyy/MM/dd").parse(dateDerniereConsultation);  
 
 		Livre livre = livreService.editLivre(id, titre, auteur, nombrePages, disponible,date1,date2);
 		return livre;
 	}
 	
-	@DeleteMapping(path = "/{id}")
+	@DeleteMapping(path = "/delete/{id}")
 	public ResponseEntity<Object>  deleteLivre(@PathVariable Integer id) {
 		livreService.deleteLivre(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
